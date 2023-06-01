@@ -1,4 +1,4 @@
-package com.example
+package com.gregorpurdy
 
 import zio.http._
 import zio._
