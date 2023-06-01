@@ -8,8 +8,8 @@ In one terminal, cd into the source directory and run:
 sbt run
 ```
 
-In another terminal, do:
+In another terminal, do this to have curl call the endpoint, allowing self-signed cert:
 
 ```
-curl -v https://localhost:8080/ping
+curl -k https://localhost:8080/ping
 ```
