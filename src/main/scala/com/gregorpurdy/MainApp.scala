@@ -16,10 +16,8 @@
 
 package com.gregorpurdy
 
-import zio.http._
 import zio._
-
-import java.io.IOException
+import zio.http._
 
 object MainApp extends ZIOAppDefault {
 
