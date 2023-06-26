@@ -43,6 +43,7 @@ object MainApp extends ZIOAppDefault {
       .ssl(sslConfig)
   )
 
+  @annotation.nowarn("msg=dead code following this construct")
   override def run = for {
     _ <- ZIO.log("Starting server...")
     _ <- Server
