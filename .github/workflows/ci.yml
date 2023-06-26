@@ -1,0 +1,85 @@
+name: CI
+
+env:
+  JDK_JAVA_OPTIONS: -XX:+PrintCommandLineFlags -Xmx6G -Xss4M # JDK_JAVA_OPTIONS is _the_ env. variable to use for modern Java
+  JVM_OPTS: -XX:+PrintCommandLineFlags -Xmx6G -Xss4M # for Java 8 only (sadly, it is not modern enough for JDK_JAVA_OPTIONS)
+  NODE_OPTIONS: --max_old_space_size=6144
+
+on:
+  pull_request:
+  push:
+    branches:
+      - 'master'
+
+jobs:
+  lint:
+    runs-on: ubuntu-20.04
+    timeout-minutes: 60
+    steps:
+    - name: Checkout current branch
+      uses: actions/checkout@v3
+    - name: Setup Java
+      uses: actions/setup-java@v3
+      with:
+        distribution: temurin
+        java-version: 17
+        check-latest: true
+        cache: sbt
+    - name: Cache scala dependencies
+      uses: coursier/cache-action@v6
+    - name: Lint code
+      run: sbt check
+
+  compile:
+    runs-on: ubuntu-20.04
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix:
+        scala: ['3.*']
+    steps:
+      - name: Checkout current branch
+        uses: actions/checkout@v3
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: 17
+          check-latest: true
+          cache: sbt
+      - name: Cache scala dependencies
+        uses: coursier/cache-action@v6
+      - name: Test/compile 3
+        if: ${{ startsWith(matrix.scala, '3.') }}
+        run: free --si -tmws 10 & sbt ++${{ matrix.scala }} Test/compile
+
+  test:
+    runs-on: ubuntu-20.04
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        scala: ['3.3.0']
+        java: ['17']
+    steps:
+    - name: Checkout current branch
+      uses: actions/checkout@v3
+    - name: Setup Java
+      uses: actions/setup-java@v3
+      with:
+        distribution: temurin
+        java-version: ${{ matrix.java }}
+        check-latest: true
+        cache: sbt
+    - name: Cache scala dependencies
+      uses: coursier/cache-action@v6
+    - name: Test 3
+      if: ${{ startsWith(matrix.scala, '3.') }}
+      run: sbt ++${{ matrix.scala }}! test
+
+  ci:
+    runs-on: ubuntu-20.04
+    needs: [lint, compile, test]
+    steps:
+      - name: Aggregate of lint and all tests
+        run: echo "ci passed"
