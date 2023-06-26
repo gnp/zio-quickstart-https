@@ -13,8 +13,14 @@ object MainApp extends ZIOAppDefault {
     ZIO.succeed(Response.text("pong"))
   }
 
-  val sslConfig = SSLConfig.generate(
-    behaviour = SSLConfig.HttpBehaviour.Accept
+  // val sslConfig = SSLConfig.generate(
+  //   behaviour = SSLConfig.HttpBehaviour.Accept
+  // )
+
+  val sslConfig = SSLConfig.fromResource(
+    behaviour = SSLConfig.HttpBehaviour.Accept,
+    certPath = "server.crt",
+    keyPath = "server.key"
   )
 
   val configLayer = ZLayer.succeed(
