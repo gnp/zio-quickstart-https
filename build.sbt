@@ -101,8 +101,20 @@ val stdCompilerOptions3 = Seq(
 )
 
 lazy val root = (project in file("."))
+  .aggregate(
+    api
+  )
   .settings(
-    name := "zio-quickstart-https",
+    name := "root",
+    crossScalaVersions := Nil, // To avoid "double publishing"
+    publish := {},
+    publish / skip := true,
+    publishLocal := {}
+  )
+
+lazy val api = (project in file("api"))
+  .settings(
+    name := "api",
     crossScalaVersions := Seq(Scala2Version, Scala3Version),
     scalacOptions ++= {
       CrossVersion.partialVersion(scalaVersion.value) match {

@@ -6,6 +6,6 @@
 project/metals.sbt
 project/project
 project/target
-src/main/resources/server.crt
-src/main/resources/server.key
+api/src/main/resources/server.crt
+api/src/main/resources/server.key
 target
