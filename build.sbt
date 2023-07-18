@@ -66,7 +66,7 @@ val stdCompilerOptions2 = Seq(
   "-Xlint:eta-zero", // Warn on eta-expansion (rather than auto-application) of zero-ary method.
   "-Xlint:implicit-not-found", // Check @implicitNotFound and @implicitAmbiguous messages.
   "-Xlint:inaccessible", // Warn about inaccessible types in method signatures.
-  "-Xlint:infer-any", // Warn when a type argument is inferred to be `Any`.
+  "-Xlint:-infer-any", // DISABLED (because ZIO) Warn when a type argument is inferred to be `Any`.
   "-Xlint:missing-interpolator", // A string literal appears to be missing an interpolator id.
   "-Xlint:nonlocal-return", // A return statement used an exception for flow control.
   "-Xlint:nullary-unit", // Warn when nullary methods return Unit.
