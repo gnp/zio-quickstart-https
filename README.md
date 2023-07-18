@@ -21,3 +21,19 @@ curl -k https://localhost:8080/ping
 
 If you omit the `-k` argument to `curl`, then you will get an error from `curl`
 and the server will log an SSL handshake error.
+
+## Native CLI
+
+This project generates a CLI out of the API routes
+
+To compile the CLI to a native executable binary, we use GraalVM `native-image` tool.
+
+To compile the CLI natively, we provide a bunch of sbt aliases.
+
+To compile the CLI natively, you'll need to:
+1. Update the `native-image` configuration.     
+   For this, in a first terminal, run `sbt start`   
+   Once the server is started, in a second terminal, run `sbt generateCliNativeConfig`
+2. Compile the CLI natively.     
+   For this, in a first terminal, run `sbt start` (if not already running)    
+   Once the server is started, in a second terminal, run `sbt compileCliNativeBinary`    

@@ -14,12 +14,19 @@
  * limitations under the License.
  */
 
-package com.gregorpurdy
+package com.gregorpurdy.api
 
-import zio._
-import zio.http._
+import zio.*
+import zio.http.*
+import zio.logging.backend.SLF4J
 
 object MainApp extends ZIOAppDefault {
+
+  /**
+   * See `zio-logging` documentation: https://zio.github.io/zio-logging/docs/overview/overview_slf4j
+   */
+  override val bootstrap: ZLayer[ZIOAppArgs, Any, Any] =
+    zio.Runtime.removeDefaultLoggers >>> SLF4J.slf4j
 
   val Port = 8080
 
@@ -31,24 +38,24 @@ object MainApp extends ZIOAppDefault {
   //   behaviour = SSLConfig.HttpBehaviour.Accept
   // )
 
-  val sslConfig = SSLConfig.fromResource(
+  val sslConfig: SSLConfig = SSLConfig.fromResource(
     behaviour = SSLConfig.HttpBehaviour.Accept,
     certPath = "server.crt",
-    keyPath = "server.key"
+    keyPath = "server.key",
   )
 
-  val configLayer = ZLayer.succeed(
+  val configLayer: ULayer[Server.Config] = ZLayer.succeed(
     Server.Config.default
       .port(Port)
-      .ssl(sslConfig)
+      // .ssl(sslConfig)
   )
 
   @annotation.nowarn("msg=dead code following this construct")
-  override def run = for {
+  override def run: ZIO[Environment with ZIOAppArgs with Scope, Any, Any] = for {
     _ <- ZIO.log("Starting server...")
     _ <- Server
-      .serve(pingApp)
-      .provide(configLayer, Server.live)
+           .serve(pingApp ++ routes.app)
+           .provide(configLayer, Server.live)
   } yield ()
 
 }

@@ -8,3 +8,5 @@ project/target
 src/main/resources/server.crt
 src/main/resources/server.key
 target
+.idea
+reports
