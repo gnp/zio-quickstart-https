@@ -94,6 +94,11 @@ lazy val cli =
       nativeImageVersion := "17.0.7",
       nativeImageJvm := "graalvm",
       nativeImageOptions ++= {
+        /**
+         * Mostly come from:
+         * - https://github.com/oracle/graal/issues/2050#issuecomment-797689154
+         * - https://github.com/oracle/graal/issues/2050#issuecomment-997282641
+         */
         val runtimeClasses =
           """
             |io.netty.handler.ssl.BouncyCastleAlpnSslUtils
@@ -110,10 +115,10 @@ lazy val cli =
             |io.netty.channel.unix.IovArray
             |io.netty.channel.unix.Limits
             |io.netty.util.internal.logging.Log4JLogger
+            |io.netty.incubator.channel.uring
             |""".stripMargin.trim.split('\n').mkString(",")
 
         Seq(
-          "--exclude-config \".*.jar,.*.properties\"",
           "--no-fallback",
           "--enable-http",
           "--enable-https",
@@ -122,7 +127,6 @@ lazy val cli =
           "--install-exit-handlers",
           "--diagnostics-mode",
           // "-H:+BuildReport", // only available on Oracle GraalVM
-          //"--exclude-config .*.jar,.*.properties",
           "-Djdk.http.auth.tunneling.disabledSchemes=",
           s"--initialize-at-run-time=$runtimeClasses",
         )
