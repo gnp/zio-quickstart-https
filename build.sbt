@@ -94,6 +94,30 @@ lazy val cli =
       nativeImageVersion := "17.0.7",
       nativeImageJvm := "graalvm",
       nativeImageOptions ++= {
+        /**
+         * Mostly come from:
+         * - https://github.com/oracle/graal/issues/2050#issuecomment-797689154
+         * - https://github.com/oracle/graal/issues/2050#issuecomment-997282641
+         */
+        val runtimeClasses =
+          """
+            |io.netty.handler.ssl.BouncyCastleAlpnSslUtils
+            |io.netty.channel.epoll.Epoll
+            |io.netty.channel.epoll.Native
+            |io.netty.channel.epoll.EpollEventLoop
+            |io.netty.channel.epoll.EpollEventArray
+            |io.netty.channel.DefaultFileRegion
+            |io.netty.channel.kqueue.KQueueEventArray
+            |io.netty.channel.kqueue.KQueueEventLoop
+            |io.netty.channel.kqueue.KQueue
+            |io.netty.channel.kqueue.Native
+            |io.netty.channel.unix.Errors
+            |io.netty.channel.unix.IovArray
+            |io.netty.channel.unix.Limits
+            |io.netty.util.internal.logging.Log4JLogger
+            |io.netty.incubator.channel.uring
+            |""".stripMargin.trim.split('\n').mkString(",")
+
         Seq(
           "--no-fallback",
           "--enable-http",
@@ -103,7 +127,8 @@ lazy val cli =
           "--install-exit-handlers",
           "--diagnostics-mode",
           // "-H:+BuildReport", // only available on Oracle GraalVM
-          "-H:ExcludeResources=.*.jar,.*.properties"
+          "-Djdk.http.auth.tunneling.disabledSchemes=",
+          s"--initialize-at-run-time=$runtimeClasses",
         )
       },
       nativeImageAgentMerge := true,

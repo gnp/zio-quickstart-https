@@ -105,6 +105,10 @@
   "queryAllDeclaredMethods":true
 },
 {
+  "name":"io.netty.util.ResourceLeakDetector$DefaultResourceLeak",
+  "fields":[{"name":"droppedRecords"}, {"name":"head"}]
+},
+{
   "name":"io.netty.util.concurrent.DefaultPromise",
   "fields":[{"name":"result"}]
 },
