@@ -105,8 +105,24 @@ lazy val cli =
           // "-H:+BuildReport", // only available on Oracle GraalVM
           "-H:ExcludeResources=.*.jar,.*.properties",
           "-Djdk.http.auth.tunneling.disabledSchemes=",
-          "--initialize-at-run-time=io.netty.handler.ssl.BouncyCastleAlpnSslUtils",
-        )
+        ) ++ Seq(
+          """
+            |io.netty.handler.ssl.BouncyCastleAlpnSslUtils
+            |io.netty.channel.epoll.Epoll
+            |io.netty.channel.epoll.Native
+            |io.netty.channel.epoll.EpollEventLoop
+            |io.netty.channel.epoll.EpollEventArray
+            |io.netty.channel.DefaultFileRegion
+            |io.netty.channel.kqueue.KQueueEventArray
+            |io.netty.channel.kqueue.KQueueEventLoop
+            |io.netty.channel.kqueue.KQueue
+            |io.netty.channel.kqueue.Native
+            |io.netty.channel.unix.Errors
+            |io.netty.channel.unix.IovArray
+            |io.netty.channel.unix.Limits
+            |io.netty.util.internal.logging.Log4JLogger
+            |""".stripMargin.trim.split('\n').map(c => s"--initialize-at-run-time=$c").mkString(",")
+          )
       },
       nativeImageAgentMerge := true,
       nativeImageOptions += s"-H:ConfigurationFileDirectories=${(Compile / resourceDirectory).value}/META-INF/native-image",
