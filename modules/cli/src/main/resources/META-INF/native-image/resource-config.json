@@ -1,9 +1,27 @@
 {
-  "resources":{
-  "includes":[{
-    "pattern":"\\QMETA-INF/native/libnetty_transport_native_kqueue_x86_64.jnilib\\E"
-  }, {
-    "pattern":"\\Qlibrary.properties\\E"
-  }]},
-  "bundles":[]
+  "resources": {
+    "includes": [
+      {
+        "pattern": "\\QMETA-INF/native/libnetty_transport_native_epoll_x86_64.so\\E"
+      },
+      {
+        "pattern": "\\QMETA-INF/native/libnetty_transport_native_kqueue_x86_64.jnilib\\E"
+      },
+      {
+        "pattern": "\\Qlibrary.properties\\E"
+      }
+    ]
+  },
+  "excludes": [
+    {
+      "pattern": "\\QMETA-INF/native-image/io.netty/netty-common/native-image.properties\\E"
+    },
+    {
+      "pattern": ".*.jar"
+    },
+    {
+      "pattern": ".*.properties"
+    }
+  ],
+  "bundles": []
 }

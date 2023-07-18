@@ -94,18 +94,7 @@ lazy val cli =
       nativeImageVersion := "17.0.7",
       nativeImageJvm := "graalvm",
       nativeImageOptions ++= {
-        Seq(
-          "--no-fallback",
-          "--enable-http",
-          "--enable-https",
-          "--enable-url-protocols=http,https",
-          // "--enable-sbom", // only available on Oracle GraalVM
-          "--install-exit-handlers",
-          "--diagnostics-mode",
-          // "-H:+BuildReport", // only available on Oracle GraalVM
-          "-H:ExcludeResources=.*.jar,.*.properties",
-          "-Djdk.http.auth.tunneling.disabledSchemes=",
-        ) ++ Seq(
+        val runtimeClasses =
           """
             |io.netty.handler.ssl.BouncyCastleAlpnSslUtils
             |io.netty.channel.epoll.Epoll
@@ -121,8 +110,22 @@ lazy val cli =
             |io.netty.channel.unix.IovArray
             |io.netty.channel.unix.Limits
             |io.netty.util.internal.logging.Log4JLogger
-            |""".stripMargin.trim.split('\n').map(c => s"--initialize-at-run-time=$c").mkString(",")
-          )
+            |""".stripMargin.trim.split('\n').mkString(",")
+
+        Seq(
+          "--exclude-config \".*.jar,.*.properties\"",
+          "--no-fallback",
+          "--enable-http",
+          "--enable-https",
+          "--enable-url-protocols=http,https",
+          // "--enable-sbom", // only available on Oracle GraalVM
+          "--install-exit-handlers",
+          "--diagnostics-mode",
+          // "-H:+BuildReport", // only available on Oracle GraalVM
+          //"--exclude-config .*.jar,.*.properties",
+          "-Djdk.http.auth.tunneling.disabledSchemes=",
+          s"--initialize-at-run-time=$runtimeClasses",
+        )
       },
       nativeImageAgentMerge := true,
       nativeImageOptions += s"-H:ConfigurationFileDirectories=${(Compile / resourceDirectory).value}/META-INF/native-image",
