@@ -31,13 +31,13 @@ object MainApp extends ZIOAppDefault {
   //   behaviour = SSLConfig.HttpBehaviour.Accept
   // )
 
-  val sslConfig = SSLConfig.fromResource(
+  val sslConfig: SSLConfig = SSLConfig.fromResource(
     behaviour = SSLConfig.HttpBehaviour.Accept,
     certPath = "server.crt",
     keyPath = "server.key"
   )
 
-  val configLayer = ZLayer.succeed(
+  val configLayer: ULayer[Server.Config] = ZLayer.succeed(
     Server.Config.default
       .port(Port)
       .ssl(sslConfig)
