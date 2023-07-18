@@ -103,7 +103,9 @@ lazy val cli =
           "--install-exit-handlers",
           "--diagnostics-mode",
           // "-H:+BuildReport", // only available on Oracle GraalVM
-          "-H:ExcludeResources=.*.jar,.*.properties"
+          "-H:ExcludeResources=.*.jar,.*.properties",
+          "-Djdk.http.auth.tunneling.disabledSchemes=",
+          "--initialize-at-run-time=io.netty.handler.ssl.BouncyCastleAlpnSslUtils",
         )
       },
       nativeImageAgentMerge := true,
