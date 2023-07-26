@@ -1,4 +1,4 @@
-# zio-quickstart-https
+# ZIO Quickstart HTTPS
 
 A simple HTTPS server with one endpoint.
 
