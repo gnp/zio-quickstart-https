@@ -1,5 +1,7 @@
 # ZIO Quickstart HTTPS
 
+![CI][Badge-CI]
+
 A simple HTTPS server with one endpoint.
 
 Before running the server, first run the _makecert.sh_ script, which will put a
@@ -21,3 +23,5 @@ curl -k https://localhost:8080/ping
 
 If you omit the `-k` argument to `curl`, then you will get an error from `curl`
 and the server will log an SSL handshake error.
+
+[Badge-CI]: https://github.com/gnp/zio-quickstart-https/workflows/CI/badge.svg
