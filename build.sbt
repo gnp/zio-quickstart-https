@@ -1,6 +1,6 @@
 import Dependencies._
 
-val Scala2Version = "2.13.11"
+val Scala2Version = "2.13.12"
 val Scala3Version = "3.3.1"
 
 ThisBuild / scalaVersion := Scala2Version // For JDK 16 compatibility
