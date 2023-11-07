@@ -13,7 +13,7 @@ object Dependencies {
   val ZioHttpVersion = "3.0.0-RC2"
   lazy val ZioHttp = "dev.zio" %% "zio-http" % ZioHttpVersion
 
-  val ZioVersion = "2.0.18"
+  val ZioVersion = "2.0.19"
   lazy val Zio = "dev.zio" %% "zio" % ZioVersion
   lazy val ZioTest = "dev.zio" %% "zio-test" % ZioVersion
   lazy val ZioTestMagnolia = "dev.zio" %% "zio-test-magnolia" % ZioVersion
