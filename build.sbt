@@ -3,6 +3,9 @@ import Dependencies._
 val Scala2Version = "2.13.12"
 val Scala3Version = "3.3.1"
 
+ThisBuild / resolvers +=
+  "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots"
+
 ThisBuild / scalaVersion := Scala2Version // For JDK 16 compatibility
 
 ThisBuild / organization := "com.gregorpurdy.ident"

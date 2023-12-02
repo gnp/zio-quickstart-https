@@ -23,9 +23,10 @@ object MainApp extends ZIOAppDefault {
 
   val Port = 8080
 
-  val pingApp: HttpApp[Any, Nothing] = Http.collectZIO[Request] { case Method.GET -> Root / "ping" =>
-    ZIO.succeed(Response.text("pong"))
-  }
+  val pingRoute =
+    Method.GET / "ping" -> handler(Response.text("pong"))
+
+  val pingApp = Routes(pingRoute).toHttpApp
 
   // val sslConfig = SSLConfig.generate(
   //   behaviour = SSLConfig.HttpBehaviour.Accept
