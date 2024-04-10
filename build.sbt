@@ -1,7 +1,7 @@
 import Dependencies._
 
 val Scala2Version = "2.13.13"
-val Scala3Version = "3.3.3"
+val Scala3Version = "3.4.1"
 
 ThisBuild / resolvers +=
   "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots"
