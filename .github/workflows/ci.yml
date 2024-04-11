@@ -17,7 +17,7 @@ jobs:
     timeout-minutes: 60
     steps:
     - name: Checkout current branch
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: Setup Java
       uses: actions/setup-java@v3
       with:
@@ -38,7 +38,7 @@ jobs:
         scala: ['3.*']
     steps:
       - name: Checkout current branch
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Setup Java
         uses: actions/setup-java@v3
         with:
@@ -61,7 +61,7 @@ jobs:
         java: ['17']
     steps:
     - name: Checkout current branch
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: Setup Java
       uses: actions/setup-java@v3
       with:
