@@ -1,7 +1,7 @@
 import sbt._
 
 object Dependencies {
-  val LogbackVersion = "1.5.4"
+  val LogbackVersion = "1.5.5"
   lazy val Logback = "ch.qos.logback" % "logback-classic" % LogbackVersion
 
   val Slf4JVersion = "2.0.12"
