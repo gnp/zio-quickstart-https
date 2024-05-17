@@ -1,6 +1,6 @@
 import Dependencies._
 
-val Scala2Version = "2.13.13"
+val Scala2Version = "2.13.14"
 val Scala3Version = "3.4.1"
 
 ThisBuild / resolvers +=
