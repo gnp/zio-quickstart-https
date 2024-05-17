@@ -128,7 +128,7 @@ lazy val api = (project in file("api"))
     libraryDependencies ++= Seq(
       Zio % Compile,
       ZioHttp % Compile,
-      "org.bouncycastle" % "bcpkix-jdk18on" % "1.78" % Compile,
+      "org.bouncycastle" % "bcpkix-jdk18on" % "1.78.1" % Compile,
       Slf4JApi % Compile,
       JclOverSlf4J % Compile,
       Log4JOverSlf4J % Compile,
