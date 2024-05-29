@@ -10,7 +10,7 @@ object Dependencies {
   lazy val Log4JOverSlf4J = "org.slf4j" % "log4j-over-slf4j" % Slf4JVersion
   lazy val JulToSlf4J = "org.slf4j" % "jul-to-slf4j" % Slf4JVersion
 
-  val ZioHttpVersion = "3.0.0-RC6"
+  val ZioHttpVersion = "3.0.0-RC8"
   lazy val ZioHttp = "dev.zio" %% "zio-http" % ZioHttpVersion
 
   val ZioVersion = "2.1.1"
